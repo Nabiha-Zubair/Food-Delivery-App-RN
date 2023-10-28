@@ -27,10 +27,10 @@ const DeliveryScreen = () => {
               <Text className="text-lg text-gray-400">Estimated Arrival</Text>
               <Text className="text-4xl font-bold">40-50 Minutes</Text>
             </View>
-            <Image
+            {/* <Image
               source={require("../assets/images/delivery.gif")}
               className="h-24 w-24 ml-2"
-            />
+            /> */}
           </View>
           <Progress.Bar size={30} color="#00CCBB" indeterminate={true} />
           <Text className="mt-3 text-gray-500">

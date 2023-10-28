@@ -13,13 +13,13 @@ const OrderProcessingScreen = () => {
   }, []);
   return (
     <SafeAreaView className="bg-[#00CCBB] flex-1 justify-center items-center">
-      <Animatable.Image
+      {/* <Animatable.Image
         source={require("../assets/images/OrderProcess.gif")}
         animation="slideInUp"
         iteration
         Count={1}
         className="h-96 w-96"
-      />
+      /> */}
       <Animatable.Text
         animation="slideInUp"
         iteration
