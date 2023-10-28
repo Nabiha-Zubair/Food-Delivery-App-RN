@@ -32,29 +32,26 @@ export default function HomeScreen() {
     sanityClient
       .fetch(
         `*[_type == "featured"]{
-    ...,
-    restaurants[]->{
-      ...,
-      dish[]->{
-        type-> {
-        name
-        }
-      },
-      type->{
-        title
-      }
-    }
-  }`
+          ...,
+          restaurants[]->{
+            ...,
+            dishes[]->{
+              ...
+            },
+            type->{
+              title
+            }
+          }
+        }`
       )
       .then((data) => {
         setFeaturedCategories(data);
       })
       .catch((err) => {
-        console.log("eeror: ", err.message);
+        console.log("error: ", err.message);
       });
   }, []);
 
-  // console.log("fetched: ", featuredCategories);
   return (
     <SafeAreaView className="bg-white">
       <View className="flex-row p-3 items-center mx-3 space-x-2">
