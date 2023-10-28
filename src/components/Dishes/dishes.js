@@ -5,6 +5,7 @@ import { MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/solid";
 
 import {
   addToCart,
+  memoizedSelectCartItems,
   removeFromCart,
   selectCartItems,
   selectCartItemsById,
@@ -13,7 +14,7 @@ import { urlFor } from "../../../sanity";
 
 export const Dishes = ({ id, name, description, price, image }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const items = useSelector((state) => selectCartItemsById(state, id));
+  const items = useSelector((state) => memoizedSelectCartItems(state, id));
   const dispatch = useDispatch();
 
   const addItem = () => {

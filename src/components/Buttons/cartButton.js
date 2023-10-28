@@ -3,20 +3,24 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectCartTotal, selectCartItems } from "../../redux/slices/cartSlice";
 import { useNavigation } from "@react-navigation/native";
+
 const CartIcon = () => {
-  const items = useSelector(selectCartItems);
+  const items = useSelector((state) => selectCartItems(state));
   const navigation = useNavigation();
-  const basketTotal = useSelector(selectCartTotal);
+  const cartTotal = useSelector((state) => selectCartTotal(state));
   return (
     <View className="absolute bottom-10 w-full z-50">
-      <TouchableOpacity className="mx-5 bg-[#00CCBB] p-4 rounded-lg flex-row items-center space-x-1">
-        <Text className=" text-white font-extrabold text-lg bg- [#01A296] py-1 px-2">
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Cart")}
+        className="mx-5 bg-primary_btn_color p-4 rounded-lg flex-row items-center space-x-1"
+      >
+        <Text className="text-white font-extrabold text-lg bg-[#01A296] py-1 px-3 rounded-lg">
           {items.length}
         </Text>
         <Text className="flex-1 text-white font-extrabold text-lg text-center">
-          View Basket
+          View Cart
         </Text>
-        <Text className="text-lgtext-white font-extrabold">$ {basketTotal}</Text>
+        <Text className="text-lg text-white font-extrabold">$ {cartTotal.toFixed(2)}</Text>
       </TouchableOpacity>
     </View>
   );

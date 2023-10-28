@@ -38,7 +38,7 @@ const RestaurantScreen = () => {
   return (
     <>
       <CartIcon />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
         <View className="relative">
           <Image
             source={{
