@@ -1,17 +1,41 @@
 import * as Progress from "react-native-progress";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   SafeAreaView,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import { XMarkIcon } from "react-native-heroicons/solid";
+import * as Location from "expo-location";
 
 const DeliveryScreen = () => {
   const navigation = useNavigation();
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [Dlatitude, setLatitude] = useState(null);
+  const [Dlongitude, setLongitude] = useState(73.034585);
+  
+  const fetchLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    setLocation(location);
+    setLongitude(73.034585);
+    setLatitude(33.65086);
+  };
+  useEffect(() => {
+    fetchLocation();
+  }, []);
+
   return (
     <View className="bg-[#00CCBB] flex-1">
       <SafeAreaView className="z-50">
@@ -38,6 +62,28 @@ const DeliveryScreen = () => {
           </Text>
         </View>
       </SafeAreaView>
+      {Dlatitude === null ? (
+        <ActivityIndicator size="small" color="#0000ff" />
+      ) : (
+        // <Text>MAP</Text>
+        <MapView
+          initialRegion={{
+            latitude: Dlatitude,
+            longitude: Dlongitude,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+          }}
+          mapType="mutedStandard"
+          className="flex-1 -mt-10 z-0"
+        >
+          <Marker
+            coordinate={{ latitude: Dlatitude, longitude: Dlongitude }}
+            pinColor={"green"}
+            title={"title"}
+            description={"description"}
+          />
+        </MapView>
+      )}
     </View>
   );
 };
