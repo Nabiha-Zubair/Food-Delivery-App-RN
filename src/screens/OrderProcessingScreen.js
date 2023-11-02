@@ -8,6 +8,7 @@ const OrderProcessingScreen = () => {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
+      console.log("Err");
       navigation.navigate("Delivery");
     }, 4000);
   }, []);
