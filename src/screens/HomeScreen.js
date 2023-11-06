@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   Image,
+  Platform,
   SafeAreaView,
   ScrollView,
   Text,
@@ -54,7 +55,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="bg-white">
-      <View className="flex-row p-3 items-center mx-3 space-x-2">
+      <View className={`flex-row p-3 items-center mx-3 space-x-2 ${Platform.OS !== 'ios' && 'mt-16' }`}>
         <Image
           source={{ uri: "https://links.papareact.com/wru" }}
           className="h-7 w-7 bg-gray-300 p-4 rounded-full"
