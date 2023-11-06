@@ -2,19 +2,19 @@ import { SafeAreaView } from "react-native";
 import React, { useEffect } from "react";
 import * as Animatable from "react-native-animatable";
 import * as Progress from "react-native-progress";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 
 const OrderProcessingScreen = () => {
-  const navigation = useNavigation();
+  const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("Delivery");
+      router.push("/delivery");
     }, 4000);
   }, []);
   return (
     <SafeAreaView className="bg-[#00CCBB] flex-1 justify-center items-center">
       <Animatable.Image
-        source={require("../assets/images/OrderProcess.gif")}
+        source={require("./assets/images/OrderProcess.gif")}
         animation="slideInUp"
         iteration
         Count={1}

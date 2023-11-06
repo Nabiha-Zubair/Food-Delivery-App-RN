@@ -9,17 +9,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { useNavigation } from "@react-navigation/native";
+import { Link } from "expo-router";
 import { XMarkIcon } from "react-native-heroicons/solid";
 import * as Location from "expo-location";
 
 const DeliveryScreen = () => {
-  const navigation = useNavigation();
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [Dlatitude, setLatitude] = useState(null);
   const [Dlongitude, setLongitude] = useState(73.034585);
-  
+
   const fetchLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -40,9 +39,9 @@ const DeliveryScreen = () => {
     <View className="bg-[#00CCBB] flex-1">
       <SafeAreaView className="z-50">
         <View className="flex-row justify-between items-center p-5">
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Link href="/">
             <XMarkIcon color="white" size={30} />
-          </TouchableOpacity>
+          </Link>
           <Text className="font-light text-white text-lg">Order Help</Text>
         </View>
         <View className="bg-white mx-5 my-2 rounded-md p-6 z-50 shadow-md">
@@ -52,7 +51,7 @@ const DeliveryScreen = () => {
               <Text className="text-4xl font-bold">40-50 Minutes</Text>
             </View>
             <Image
-              source={require("../assets/images/delivery.gif")}
+              source={require("./assets/images/delivery.gif")}
               className="h-24 w-24 ml-2"
             />
           </View>

@@ -8,17 +8,18 @@ import {
   Text,
   Image,
 } from "react-native";
+import { Link, Stack, useRouter } from "expo-router";
 import { XCircleIcon } from "react-native-heroicons/solid";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromCart,
   selectCartItems,
   selectCartTotal,
-} from "../redux/slices/cartSlice";
-import { urlFor } from "../../sanity";
+} from "./redux/slices/cartSlice";
+import { urlFor } from "../sanity";
 
 const CartItemScreen = () => {
-  const navigation = useNavigation();
+  const router = useRouter();
   const items = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
   const [groupedCartItems, setGroupedCartItems] = useState([]);
@@ -32,6 +33,14 @@ const CartItemScreen = () => {
     setGroupedCartItems(groupedItems);
   }, [items]);
 
+  const placeOrder = () => {
+    if (items.length === 0) {
+      alert("Add atleast one item in the Cart");
+    } else {
+      router.replace("/orderProcess");
+    }
+  };
+
   return (
     <SafeAreaView className="bg-white">
       <View className="bg-[#F9FAFA] h-full">
@@ -41,12 +50,13 @@ const CartItemScreen = () => {
             {/* <Text>{restaurant?.title}</Text> */}
           </View>
 
-          <TouchableOpacity
-            onPress={navigation.goBack}
-            className="rounded-full bg-gray-100 absolute top-3 right-5"
+          <Link
+            // onPress={router.back}
+            href="../"
+            className="rounded-full absolute top-3 right-5"
           >
             <XCircleIcon size={50} color="#00CCBB" />
-          </TouchableOpacity>
+          </Link>
         </View>
 
         <View className="flex-row items-center space-x-4 px-4 py-3 bg-white my-5">
@@ -102,7 +112,7 @@ const CartItemScreen = () => {
 
           <TouchableOpacity
             className="bg-primary_btn_color rounded-lg p-4"
-            onPress={() => navigation.navigate("OrderProcess")}
+            onPress={() => placeOrder()}
           >
             <Text className="text-white text-center text-lg font-bold">
               Place Order

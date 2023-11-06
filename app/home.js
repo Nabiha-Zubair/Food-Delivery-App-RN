@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   Platform,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import {
@@ -14,20 +15,15 @@ import {
   MagnifyingGlassIcon,
   UserIcon,
 } from "react-native-heroicons/outline";
-import { useNavigation } from "@react-navigation/native";
+import { Link, Stack, useRouter } from "expo-router";
 
-import { Categories } from "../components/Categories/categories";
-import { FeaturedRow } from "../components/Featured/FeaturedRow";
-import sanityClient from "../../sanity";
+import { Categories } from "./components/Categories/categories";
+import { FeaturedRow } from "./components/Featured/FeaturedRow";
+import sanityClient from "../sanity";
 
-export default function HomeScreen() {
+export default function Home() {
   const [featuredCategories, setFeaturedCategories] = useState([]);
-  const navigation = useNavigation();
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
+  const router = useRouter();
 
   useEffect(() => {
     sanityClient
@@ -55,7 +51,11 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="bg-white">
-      <View className={`flex-row p-3 items-center mx-3 space-x-2 ${Platform.OS !== 'ios' && 'mt-16' }`}>
+      <View
+        className={`flex-row p-3 items-center mx-3 space-x-2 ${
+          Platform.OS !== "ios" && "mt-16"
+        }`}
+      >
         <Image
           source={{ uri: "https://links.papareact.com/wru" }}
           className="h-7 w-7 bg-gray-300 p-4 rounded-full"

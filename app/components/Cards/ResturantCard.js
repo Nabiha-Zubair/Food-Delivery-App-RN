@@ -1,7 +1,7 @@
 import { Image, Text, TouchableOpacity, View, ScrollView } from "react-native";
 import { MapPinIcon } from "react-native-heroicons/outline";
 import { StarIcon } from "react-native-heroicons/solid";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 
 import { urlFor } from "../../../sanity";
 
@@ -17,25 +17,28 @@ export const RestaurantCard = ({
   long,
   lat,
 }) => {
-  const navigation = useNavigation();
+  const router = useRouter();
 
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("Restaurant", {
-          id,
-          imgurl,
-          title,
-          rating,
-          genre,
-          address,
-          short_description,
-          dishes,
-          long,
-          lat,
+        router.push({
+          pathname: "/restaurant",
+          params: {
+            id,
+            imgurl: JSON.stringify(imgurl),
+            title,
+            rating,
+            genre,
+            address,
+            short_description,
+            dishes: JSON.stringify(dishes),
+            long,
+            lat,
+          },
         })
       }
-      className=" bg-white mr-3 shadow"
+      className="bg-white mr-3 shadow"
     >
       <Image
         source={{

@@ -1,39 +1,35 @@
+import { Stack, useRouter, useLocalSearchParams } from "expo-router";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
-import React, { useLayoutEffect } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
-
+import React from "react";
 import { MapPinIcon, ChevronRightIcon } from "react-native-heroicons/outline";
 import {
   ArrowLeftIcon,
   StarIcon,
   QuestionMarkCircleIcon,
 } from "react-native-heroicons/solid";
-import { urlFor } from "../../sanity";
-import { Dishes } from "../components/Dishes/dishes";
-import CartIcon from "../components/Buttons/cartButton";
+import { urlFor } from "../sanity";
+import { Dishes } from "./components/Dishes/dishes";
+import CartIcon from "./components/Buttons/cartButton";
 
 const RestaurantScreen = () => {
-  const navigation = useNavigation();
-  const {
-    params: {
-      id,
-      imgurl,
-      title,
-      rating,
-      genre,
-      address,
-      short_description,
-      dishes,
-      long,
-      lat,
-    },
-  } = useRoute();
+  const router = useRouter();
+  const params = useLocalSearchParams();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
+  const {
+    id,
+    imgurl,
+    title,
+    rating,
+    genre,
+    address,
+    short_description,
+    dishes,
+    long,
+    lat,
+  } = params;
+
+  const parsedDishes = JSON.parse(dishes);
+  const parsedImgUrl = JSON.parse(imgurl);
 
   return (
     <>
@@ -42,12 +38,12 @@ const RestaurantScreen = () => {
         <View className="relative">
           <Image
             source={{
-              uri: urlFor(imgurl).url(),
+              uri: urlFor( parsedImgUrl).url(),
             }}
             className="w-full h-56 bg-gray-200 p-4"
           />
           <TouchableOpacity
-            onPress={navigation.goBack}
+            onPress={router.back}
             className="absolute top-14 left-5 p-2 bg-gray-100 rounded-full"
           >
             <ArrowLeftIcon size={20} color="#00CCBB" />
@@ -81,7 +77,7 @@ const RestaurantScreen = () => {
         </View>
         <View>
           <Text className="px-4 pt-6 mb-3 font-bold text-lg">Menu</Text>
-          {dishes?.map((dish) => (
+          {parsedDishes?.map((dish) => (
             <Dishes
               key={dish._id}
               id={dish._id}
