@@ -43,18 +43,14 @@ const CartItemScreen = () => {
 
   return (
     <SafeAreaView className="bg-white">
-      <View className="bg-[#F9FAFA] h-full">
-        <View className="bg-white p-6 border-t-4 border-b-4 border-gray-200 shadow-sm">
+      <View className="bg-white h-full">
+        <View className="bg-white p-6 border-b-4 border-gray-100 shadow-sm mt-10">
           <View>
             <Text className="text-xl font-bold text-center">Cart</Text>
             {/* <Text>{restaurant?.title}</Text> */}
           </View>
 
-          <Link
-            // onPress={router.back}
-            href="../"
-            className="rounded-full absolute top-3 right-5"
-          >
+          <Link href="../" className="rounded-full absolute top-3 right-5">
             <XCircleIcon size={50} color="#00CCBB" />
           </Link>
         </View>

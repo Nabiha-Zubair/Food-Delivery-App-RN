@@ -14,6 +14,7 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
   UserIcon,
+  ShoppingCartIcon,
 } from "react-native-heroicons/outline";
 import { Link, Stack, useRouter } from "expo-router";
 
@@ -67,8 +68,9 @@ export default function Home() {
             <ChevronDownIcon color="#00CCBB" size={20} />
           </Text>
         </View>
-
-        <UserIcon color="#00CCBB" size={35} />
+        <Link href="/cart">
+          <ShoppingCartIcon color="#00CCBB" size={35} />
+        </Link>
       </View>
 
       <View className="flex-row items-center m-5 space-x-2">

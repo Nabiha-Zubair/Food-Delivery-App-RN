@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  Platform,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+// import MapView, { Marker } from "react-native-maps";
 import { Link } from "expo-router";
 import { XMarkIcon } from "react-native-heroicons/solid";
 import * as Location from "expo-location";
@@ -16,20 +17,27 @@ import * as Location from "expo-location";
 const DeliveryScreen = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [Dlatitude, setLatitude] = useState(null);
+  const [Dlatitude, setLatitude] = useState(33.65086);
   const [Dlongitude, setLongitude] = useState(73.034585);
 
   const fetchLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
-    }
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
-    setLongitude(73.034585);
-    setLatitude(33.65086);
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      // let location = await Location.getCurrentPositionAsync({});
+      // console.log("location,", location);
+
+      // setLocation(location);
+      setLongitude(73.034585);
+      setLatitude(33.65086);
+    } catch (err) {
+      console.log("err:", err);
+    }
   };
   useEffect(() => {
     fetchLocation();
@@ -38,12 +46,17 @@ const DeliveryScreen = () => {
   return (
     <View className="bg-[#00CCBB] flex-1">
       <SafeAreaView className="z-50">
-        <View className="flex-row justify-between items-center p-5">
+        <View
+          className={`flex-row justify-between items-center p-5 ${
+            Platform.OS !== "ios" && "mt-7"
+          }`}
+        >
           <Link href="/">
             <XMarkIcon color="white" size={30} />
           </Link>
           <Text className="font-light text-white text-lg">Order Help</Text>
         </View>
+
         <View className="bg-white mx-5 my-2 rounded-md p-6 z-50 shadow-md">
           <View className="flex-row justify-between">
             <View>
@@ -61,10 +74,9 @@ const DeliveryScreen = () => {
           </Text>
         </View>
       </SafeAreaView>
-      {Dlatitude === null ? (
+      {/* {Dlatitude === null ? (
         <ActivityIndicator size="small" color="#0000ff" />
       ) : (
-        // <Text>MAP</Text>
         <MapView
           initialRegion={{
             latitude: Dlatitude,
@@ -82,7 +94,7 @@ const DeliveryScreen = () => {
             description={"description"}
           />
         </MapView>
-      )}
+      )} */}
     </View>
   );
 };
