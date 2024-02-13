@@ -9,7 +9,7 @@ export const FeaturedRow = ({ id, title, description, restaurants }) => {
         <Text className="font-bold text-lg">{title}</Text>
         <ArrowRightIcon color="#00CCBB" />
       </View>
-      <Text className="text-xs ☐text-gray-500 px-2">{description}</Text>
+      <Text className="text-xs text-gray-500 px-2">{description}</Text>
       <ScrollView
         horizontal
         content
